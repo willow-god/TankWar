@@ -2,8 +2,17 @@ package tankwar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GamePanel extends JFrame {
+
+    //双缓存图片
+    Image offScreenImage = null;
+    //游戏状态 0未开始 1运行中 2暂停 3失败 4成功
+    int state = 0;
+    int a = 0;
+
     int width = 800;
     int height = 610;
 
@@ -18,6 +27,8 @@ public class GamePanel extends JFrame {
         setResizable(false);
         //窗口可见
         setVisible(true);
+        //添加键盘事件
+        this.addKeyListener(new GamePanel.KeyMonitor());
     }
 
     @Override
@@ -33,6 +44,15 @@ public class GamePanel extends JFrame {
         g.drawString("选择游戏模式",220,100);
         g.drawString("单人模式",220,200);
         g.drawString("双人模式",220,300);
+    }
+
+    private class KeyMonitor extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int key = e.getKeyCode();
+            System.out.println(key);
+            System.out.println(e.getKeyChar());
+        }
     }
 
     public static void main(String[] args) {
