@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 
 public class GamePanel extends JFrame {
 
-
     Image offScreenImage = null;//定义双缓存图片
     //游戏状态 0未开始 1运行中 2暂停 3失败 4成功
     public int state = 0;

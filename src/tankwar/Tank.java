@@ -12,6 +12,37 @@ public class Tank extends GameObject{
     int width = 40;
     int height = 50;
 
+    Direction direction = Direction.UP;//初始方向上
+
+    private int speed = 3;
+
+
+    //方向操作四个方位
+    public void leftward(){
+        direction = Direction.LEFT;
+        setImg(leftImage);
+        this.x -= speed;
+
+    }
+    public void rightward(){
+        direction = Direction.RIGHT;
+        setImg(rightImage);
+        this.x += speed;
+
+    }
+    public void upward(){
+        direction = Direction.UP;
+        setImg(upImage);
+        this.y -= speed;
+
+    }
+    public void downward(){
+        direction = Direction.DOWN;
+        setImg(downImage);
+        this.y += speed;
+
+    }
+
     @Override
     public void paintSelf(Graphics g){};
 
