@@ -33,6 +33,7 @@ public class PlayerOne extends Tank{
         }
     }
 
+
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key){
@@ -68,7 +69,10 @@ public class PlayerOne extends Tank{
     }
 
     @Override
-    public void paintSelf(Graphics g){g.drawImage(img,x,y,null);};
+    public void paintSelf(Graphics g){
+        g.drawImage(img,x,y,null);
+        move();
+    };
 
     @Override
     public Rectangle getRec() {return new Rectangle(x,y,width,height);}

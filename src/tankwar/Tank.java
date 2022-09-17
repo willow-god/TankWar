@@ -22,29 +22,28 @@ public class Tank extends GameObject{
         direction = Direction.LEFT;
         setImg(leftImage);
         this.x -= speed;
-
     }
+
     public void rightward(){
         direction = Direction.RIGHT;
         setImg(rightImage);
         this.x += speed;
-
     }
+
     public void upward(){
         direction = Direction.UP;
         setImg(upImage);
         this.y -= speed;
-
     }
+
     public void downward(){
         direction = Direction.DOWN;
         setImg(downImage);
         this.y += speed;
-
     }
 
     @Override
-    public void paintSelf(Graphics g){};
+    public void paintSelf(Graphics g){g.drawImage(img,x,y,null);};
 
     @Override
     public Rectangle getRec() {return new Rectangle(x,y,width,height);}

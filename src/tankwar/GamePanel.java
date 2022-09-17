@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GamePanel extends JFrame {
 
@@ -16,23 +18,32 @@ public class GamePanel extends JFrame {
     int width = 800;
     int height = 610;
 
+    public List<Tank> tankList = new ArrayList<>();
+
     //指针图片
     private  Image select = Toolkit.getDefaultToolkit().getImage("images//selecttank.gif");
     //指针初始纵坐标
     private int y = 150;
 
+    //玩家
+    private PlayerOne playerOne = new PlayerOne(
+            "images/player1/p1tankU.gif",
+            125,
+            510,
+            "images/player1/p1tankU.gif",
+            "images/player1/p1tankD.gif",
+            "images/player1/p1tankL.gif",
+            "images/player1/p1tankR.gif",
+            this);
+
     //窗口启动
     public void launch(){
         setTitle("坦克大战");
         setSize(width, height);
-        setLocationRelativeTo(null);
-        //添加关闭按钮
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //不能调整大小
-        setResizable(false);
-        //窗口可见
-        setVisible(true);
-        //添加键盘事件
+        setLocationRelativeTo(null);//添加关闭按钮
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//不能调整大小
+        setResizable(false);//窗口可见
+        setVisible(true);//添加键盘事件
         this.addKeyListener(new GamePanel.KeyMonitor());
 
         while(true){
@@ -76,6 +87,8 @@ public class GamePanel extends JFrame {
             else{
                 gImage.drawString("双人模式",220,200);
             }
+            //重绘游戏元素
+            playerOne.paintSelf(gImage);
         }
         //将缓冲区绘制好的图形绘制到容器中
         g.drawImage(offScreenImage,0,0,null);
@@ -102,14 +115,21 @@ public class GamePanel extends JFrame {
                     //System.out.println(state);//调试使用
                     break;
                 case KeyEvent.VK_ENTER:
+                    tankList.add(playerOne);
                     state = a;
                     start = true;
                     //System.out.println("state:"+""+state);//调试使用
                     break;
                 default:
+                    playerOne.keyPressed(e);
                     break;
             }
         }
+    }
+
+    //@Override//为什么不能重写啊挖草
+    public void keyReleased(KeyEvent e) {
+        playerOne.keyReleased(e);
     }
 
     public static void main(String[] args) {
