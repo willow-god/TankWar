@@ -27,6 +27,6 @@ public class Bullet extends GameObject{
     public void rightward() {   x+=speed;   }
     public void upward()    {   y-=speed;   }
     public void downward()  {   y+=speed;   }
-    public void paintSelf(Graphics g)   { g.drawImage(img,x,y,null);  }
+    public void paintSelf(Graphics g)   { g.drawImage(img,x,y,null); go(); }
     public Rectangle getRec()   {   return new Rectangle(x,y,width,height); }
 }

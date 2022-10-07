@@ -18,10 +18,12 @@ public class GamePanel extends JFrame {
     int width = 800;
     int height = 610;
 
+    public List<Bullet> bulletList = new ArrayList<>();
     public List<Tank> tankList = new ArrayList<>();
 
+    Image select = Toolkit.getDefaultToolkit().getImage("images/selecttank.gif");
     //指针图片
-    private  Image select = Toolkit.getDefaultToolkit().getImage("images//selecttank.gif");
+    //private  Image select = Toolkit.getDefaultToolkit().getImage("images//selecttank.gif");
     //指针初始纵坐标
     private int y = 150;
 
@@ -89,6 +91,9 @@ public class GamePanel extends JFrame {
             }
             //重绘游戏元素
             playerOne.paintSelf(gImage);
+            for (Bullet bullet: bulletList){
+                bullet.paintSelf(gImage);
+            }
         }
         //将缓冲区绘制好的图形绘制到容器中
         g.drawImage(offScreenImage,0,0,null);

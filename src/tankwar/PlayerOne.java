@@ -49,6 +49,9 @@ public class PlayerOne extends Tank{
             case KeyEvent.VK_W:
                 up = false;
                 break;
+            case KeyEvent.VK_SPACE:
+                this.attack();
+                break;
             default:
                 break;
         }
@@ -63,7 +66,8 @@ public class PlayerOne extends Tank{
         }
         else if(up){
             upward();
-        }else if(down){
+        }
+        else if(down){
             downward();
         }
     }

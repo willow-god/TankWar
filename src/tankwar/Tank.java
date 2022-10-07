@@ -4,10 +4,13 @@ import java.awt.*;
 
 public class Tank extends GameObject{
 
+    private boolean attackCoolDown = true;
+    private int attackCoolDownTime = 1000;
     private String upImage;
     private String downImage;
     private String leftImage;
     private String rightImage;
+    boolean alive = true;
 
     int width = 40;
     int height = 50;
@@ -40,6 +43,44 @@ public class Tank extends GameObject{
         direction = Direction.DOWN;
         setImg(downImage);
         this.y += speed;
+    }
+
+    public void attack(){
+        Point p = getHeadPoint();
+        if(attackCoolDown && alive){
+            Bullet bullet = new Bullet("images/bullet/bulletGreen.gif",p.x,p.y,direction, this.gamePanel);
+            this.gamePanel.bulletList.add(bullet);
+            attackCoolDown = false;
+            new AttackCD().start();
+        }
+    }
+
+    public class AttackCD extends Thread{
+        public void run(){
+            attackCoolDown=false;//将攻击功能设置为冷却状态
+            try{
+                Thread.sleep(attackCoolDownTime);//休眠1秒
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            attackCoolDown=true;//将攻击功能解除冷却状态
+            this.stop();
+        }
+    }
+
+    public Point getHeadPoint(){
+        switch (direction){
+            case UP:
+                return new Point(x + width/2, y );
+            case LEFT:
+                return new Point(x, y + height/2);
+            case DOWN:
+                return new Point(x + width/2, y + height);
+            case RIGHT:
+                return new Point(x + width, y + height/2);
+            default:
+                return null;
+        }
     }
 
     @Override
