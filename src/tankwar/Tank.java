@@ -19,6 +19,13 @@ public class Tank extends GameObject{
 
     private int speed = 3;
 
+    public Tank(String img, int x, int y, String upImage, String downImage, String leftImage, String rightImage, GamePanel gamePanel) {
+        super(img,x,y,gamePanel);
+        this.upImage = upImage;
+        this.downImage = downImage;
+        this.leftImage = leftImage;
+        this.rightImage = rightImage;
+    }
 
     //方向操作四个方位
     public void leftward(){
@@ -88,13 +95,5 @@ public class Tank extends GameObject{
 
     @Override
     public Rectangle getRec() {return new Rectangle(x,y,width,height);}
-
-    public Tank(String img, int x, int y, String upImage, String downImage, String leftImage, String rightImage, GamePanel gamePanel) {
-        super(img,x,y,gamePanel);
-        this.upImage = upImage;
-        this.downImage = downImage;
-        this.leftImage = leftImage;
-        this.rightImage = rightImage;
-    }
 
 }

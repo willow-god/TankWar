@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GamePanel extends JFrame {
 
@@ -15,11 +16,13 @@ public class GamePanel extends JFrame {
     private boolean start = false;//游戏是否开始
     int a = 1;//临时变量
 
+    public int count = 0;//重绘次数
     int width = 800;
     int height = 610;
 
     public List<Bullet> bulletList = new ArrayList<>();
     public List<Tank> tankList = new ArrayList<>();
+    public List<Bot> botList = new ArrayList<>();
 
     Image select = Toolkit.getDefaultToolkit().getImage("images/selecttank.gif");
     //指针图片
@@ -49,6 +52,14 @@ public class GamePanel extends JFrame {
         this.addKeyListener(new GamePanel.KeyMonitor());
 
         while(true){
+            if (count%100==1) {
+                Random r = new Random();
+                int rnum = r.nextInt(800);
+                botList.add(new Bot("images/enemy/enemy1U.gif", rnum, 110,
+                        "images/enemy/enemy1U.gif","images/enemy/enemy1D.gif",
+                        "images/enemy/enemy1L.gif","images/enemy/enemy1R.gif", this));
+                //System.out.println("bot: " + botList.size());
+            }
             repaint();
             try {
                 Thread.sleep(25);
@@ -94,6 +105,11 @@ public class GamePanel extends JFrame {
             for (Bullet bullet: bulletList){
                 bullet.paintSelf(gImage);
             }
+
+            for (Bot bot:botList) {
+                bot.paintSelf(gImage);
+            }
+            count++;
         }
         //将缓冲区绘制好的图形绘制到容器中
         g.drawImage(offScreenImage,0,0,null);
